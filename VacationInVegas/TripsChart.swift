@@ -8,26 +8,44 @@
 import SwiftUI
 import Charts
 
-struct TripsChart{
-    let place: String
+struct SmapleTripRating{
+    let trip: Int
     let rating: Int
-    static let ratings: [SmapleRating] = [
-        SmapleRating(place: "Bellagio", rating: 88),
-        SmapleRating(place: "Paris", rating: 75),
-        SmapleRating(place: "Treasure Island", rating: 33),
-        SmapleRating(place: "Excalibur", rating: 99)
+    static let ratings: [SmapleTripRating] = [
+        SmapleTripRating(trip: 1, rating: 55),
+        SmapleTripRating(trip: 2, rating: 27),
+        SmapleTripRating(trip: 3, rating: 67),
+        SmapleTripRating(trip: 4, rating: 72),
+        SmapleTripRating(trip: 5, rating: 81),
     ]
 }
 
-struct VegasChart: View {
+struct TripsChart: View {
     var body: some View {
-        Chart(SmapleRating.ratings, id: \.place){rating in
-            SectorMark(angle: .value("Ratings", rating.rating), innerRadius: .ratio(0.5), angularInset: 1)
-                .cornerRadius(7)
-                .foregroundStyle(by:.value("Place", rating.place))
+        Chart(
+            SmapleTripRating.ratings,
+            id: \.trip) { rating in
+            BarMark(
+                x: .value(
+                    "Year",
+                    rating.trip
+                ),
+                y: .value(
+                    "Rating",
+                    rating.rating
+                )
+            )
+            LinePlot(
+                x: "Years",
+                y: "Ratings"
+            ) {x in
+                return x * 6 + 50
+            }
+            .foregroundStyle(.purple)
         }
+        .chartXScale(domain: 1...5)
+        .chartYScale(domain: 1...100)
         .padding()
-        .frame(height: 500)
     }
 }
 

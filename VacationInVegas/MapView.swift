@@ -6,20 +6,32 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct MapView: View {
+    var place: Place
+    @State var position: MapCameraPosition
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .font(.largeTitle)
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Map(position: $position){
+            Annotation(place.interested ? "Place of interest" : "Not intrested", coordinate: place.location){
+                ZStack{
+                    RoundedRectangle(cornerRadius: 7)
+                        .fill(.ultraThickMaterial)
+                        .stroke(.secondary, lineWidth: 5)
+                    Image(systemName: place.interested ? "face.smiling" : "hand.thumbsdown")
+                        .padding(5)
+                }
+                .onTapGesture {
+                    place.interested.toggle()
+                }
+            }
         }
-        .padding()
+        .toolbarBackground(.automatic)
     }
 }
 
 #Preview {
-    ContentView()
+    @Previewable @State var place = Place.previewPlaces[0]
+    
+    MapView(place: place, position: .camera(MapCamera(centerCoordinate: place.location, distance: 1000, heading: 250, pitch: 80)))
 }

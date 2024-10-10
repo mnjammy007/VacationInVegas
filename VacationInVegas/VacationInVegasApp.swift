@@ -2,7 +2,7 @@
 //  VacationInVegasApp.swift
 //  VacationInVegas
 //
-//  Created by Apple on 09/10/24.
+//  Created by Nasir on 09/10/24.
 //
 
 import SwiftUI
@@ -13,5 +13,7 @@ struct VacationInVegasApp: App {
         WindowGroup {
             ContentView()
         }
+//        for production we'll use this
+        .modelContainer(for: Place.self)
     }
 }

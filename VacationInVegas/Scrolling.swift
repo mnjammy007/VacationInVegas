@@ -10,6 +10,9 @@ struct Scrolling: View {
     var body: some View {
         ScrollView{
             VStack{
+                Text("Memories")
+                    .font(.title)
+                    .padding()
                 ScrollImage(image: .bellagio)
                 ScrollImage(image: .excalibur)
                 ScrollImage(image: .luxor)

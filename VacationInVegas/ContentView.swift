@@ -2,23 +2,32 @@
 //  ContentView.swift
 //  VacationInVegas
 //
-//  Created by Apple on 09/10/24.
+//  Created by Nasir on 09/10/24.
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView{
+            Tab(
+                "Places",
+                systemImage: "photo"
+            ){
+                PlaceList()
+            }
+            Tab(
+                "Trip History",
+                systemImage: "chart.line.uptrend.xyaxis"
+            ){
+                TripsChart()
+            }
         }
-        .padding()
+        .preferredColorScheme(.dark)
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView().modelContainer(Place.preview)
 }
